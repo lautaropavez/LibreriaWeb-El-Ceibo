@@ -124,6 +124,17 @@ public class ServiceLibro {
         }
     }
     
+    //2 Formas de buscar por Id
+    @Transactional(readOnly = true)
+    public Libro buscarPorId(String id) {
+        Optional<Libro> l = libroRepo.findById(id);
+        if (l.isPresent()) {
+            Libro lib = l.get();
+            return lib;
+        } else {
+            return null; //throw new MiExcepcion("Este libro no existe."); esto debo ponerlo en el controlador
+        }
+    }
     @Transactional(readOnly = true)
     public Libro findbyId(String id) throws MiExcepcion{
         Libro l = libroRepo.buscarPorId(id);
