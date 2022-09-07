@@ -25,7 +25,7 @@ public interface LibroRepository  extends JpaRepository<Libro, String>{
     List<Libro> buscaTodo(@Param("buscar") String buscar);
     
     @Query("SELECT l from Libro l WHERE l.alta = true AND l.ejemplaresRestantes > 0")
-    List<Libro> listaActivos(); //Revisar porque no tiene parametros
+    List<Libro> listaActivos(); 
     
     @Query("SELECT l FROM Libro l WHERE l.editorial.nombre = :nombre")
     List<Libro> listarPorEditorial(@Param("nombre")String editorial);
@@ -33,16 +33,6 @@ public interface LibroRepository  extends JpaRepository<Libro, String>{
     @Query("SELECT l FROM Libro l WHERE l.autor.nombre = :nombre")
     List<Libro> listarPorAutor(@Param("nombre")String autor);
     
-//-------------------------------NO USADOS--------------------------------------   
-    
-    //No lo usamos porque usamos el que busca los que esten activos y con ejemplares
-//    @Query("SELECT l from Libro l WHERE a.activo = true ")
-//    public List<Libro> buscarActivos(@Param("activo")boolean activo); 
-
-    //Porque usamos el metodo buscaTodo y ese nos busca por titulo,editorial y autor a la vez
     @Query("SELECT l FROM Libro l WHERE l.titulo = :titulo")
-    Libro buscarPorTitulo(@Param("titulo")String titulo);
-    
-    @Query("SELECT l FROM Libro l WHERE l.anio = :anio")
-    List<Libro> buscarPorAnio(@Param("anio")Integer anio);
+    Libro buscarPorTitulo(@Param("titulo")String titulo);      
 }

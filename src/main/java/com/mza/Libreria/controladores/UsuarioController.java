@@ -24,16 +24,15 @@ public class UsuarioController {
     @Autowired
     private ServiceUsuario servUsuario;
     
-    @GetMapping("/lista") //Clase THYMELEAF min 01:03:00
+    @GetMapping("/lista") 
     public String lista(ModelMap modelo){
         List<Usuario> usuariosLista = servUsuario.listarTodos();
-        modelo.addAttribute("usuarios",usuariosLista); //Utilizo una llave("usuarios") y lo que viaja como valor es la lista usuariosLista
+        modelo.addAttribute("usuarios",usuariosLista); 
         return "list-usuario";  
     }
     
-    //Clase THYMELEAF min 01:27:00 
-    @GetMapping("/modificar/{id}") //PATHVARIABLE
-    public String modificar(@PathVariable String id,ModelMap modelo){ //Acá recibo un id que viene por URL --> /modificar/${id} y ese id es el que uso para buscar el usuario y mostrarlo, lo enviamos tambien por url 
+    @GetMapping("/modificar/{id}") 
+    public String modificar(@PathVariable String id,ModelMap modelo){  
         modelo.put("usuario",servUsuario.buscarPorId(id));
         return "modif-Usuario"; 
     }
@@ -43,48 +42,41 @@ public class UsuarioController {
         try{
             servUsuario.modificar(id,nombre,apellido,mail,clave,clave2);
             modelo.put("exito","Modificación exitosa"); 
-            return lista(modelo); //nos devuelve a la página de inicio
-            //return "list-usuario"; Profe en clase thy pone este return pero se lo devuelve vacío min 1:57
-            
+            return lista(modelo);   
         }catch(Exception e){
             modelo.put("error","Falto algún dato"); 
             return "modif-Usuario"; 
         }
     }
     
-    //Clase THYMELEAF Tarde min 01:28:00
-    @GetMapping("/baja/{id}") //PATHVARIABLE
+    @GetMapping("/baja/{id}") 
     public String baja(@PathVariable String id,ModelMap modelo){
         try {
             servUsuario.deshabilitar(id);
             return "redirect:/usuario/lista";  
         } catch (MiExcepcion ex) {
-            modelo.put("error", ex.getMessage()); //La profe no lo puso pero fijarme si anda
+            modelo.put("error", ex.getMessage()); 
             return "redirect:/usuario/lista"; 
-        //  return "redirect:/"; Profe pone este return 
         }
     }
     
-    //Clase THYMELEAF Tarde min 01:28:00
-    @GetMapping("/alta/{id}") //PATHVARIABLE
+    @GetMapping("/alta/{id}") 
     public String alta(@PathVariable String id,ModelMap modelo){ //Acá recibo un id que viene por URL --> /modificar/${id} y ese id es el que uso para buscar el usuario y mostrarlo, lo enviamos tambien por url 
         try {
             servUsuario.habilitar(id);
             return "redirect:/usuario/lista";  
         } catch (MiExcepcion ex) {
-        //    modelo.put("error", ex.getMessage()); Ver como hacer para que lo muestre si sucede algún error porque salta directamente a la otra página.La profe no lo puso pero fijarme si anda
             return "redirect:/usuario/lista"; 
-        //  return "redirect:/"; Profe pone este return 
         }
     }
     
-    @GetMapping("/eliminar/{id}") //PATHVARIABLE
+    @GetMapping("/eliminar/{id}") 
     public String eliminar(@PathVariable String id,ModelMap modelo) throws Exception{
         try {
             servUsuario.eliminar(id);
             return "redirect:/usuario/lista";  
         }catch(MiExcepcion ex) {
-            modelo.put("error", ex.getMessage()); //La profe no lo puso pero fijarme si anda
+            modelo.put("error", ex.getMessage()); 
             return "redirect:/usuario/lista"; 
         }
     }   

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author Lautaro Pavez
  */
 @Controller 
-@RequestMapping("/editorial") //localhost:8080/editorial   //Clase 2 Mañana
+@RequestMapping("/editorial") 
 public class EditorialController {
 
     @Autowired
@@ -38,7 +38,6 @@ public class EditorialController {
         try{
             servEditorial.crearEditorial(nombre);
             modelo.put("exito","¡Has creado una nueva Editorial!"); 
-            //return "redirect:/libro/registro";
             return "nuevaEditorial";
         }catch(MiExcepcion ex){
             modelo.put("error", ex.getMessage());
@@ -50,8 +49,8 @@ public class EditorialController {
     @GetMapping("/lista")
     public String lista(ModelMap modelo){
         List<Editorial> editorialesLista = servEditorial.buscaTodas();
-        modelo.addAttribute("editoriales",editorialesLista); //Utilizo una llave("libros") y lo que viaja como valor es la lista librosLista
-         return "list-editorial"; // 
+        modelo.addAttribute("editoriales",editorialesLista); 
+         return "list-editorial"; 
     }
     
     @GetMapping("/alta/{id}") 
@@ -76,7 +75,7 @@ public class EditorialController {
         }
     }
     
-    @GetMapping("/eliminar/{id}") //PATHVARIABLE
+    @GetMapping("/eliminar/{id}") 
     public String eliminar(@PathVariable String id,ModelMap modelo) throws Exception{
         try {
             servLibro.eliminarEditorial(id);

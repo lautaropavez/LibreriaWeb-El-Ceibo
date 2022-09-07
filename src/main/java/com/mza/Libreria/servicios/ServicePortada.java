@@ -31,7 +31,7 @@ public class ServicePortada {
                 portada.setContenido(archivo.getBytes());
 
                 return portadaRepo.save(portada);
-            }catch(IOException e){ // Profe usa Exception
+            }catch(IOException e){
                 System.err.println(e.getMessage());
             }
         }

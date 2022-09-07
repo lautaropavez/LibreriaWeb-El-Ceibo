@@ -22,9 +22,6 @@ public class Editorial {
     @Column(unique = true)
     private String nombre;
     private boolean alta;
-
-    
-//  CONSTRUCTORES (No lo ponemos porque Netbeans entiende que hay un constructor vacío por defecto)
     
 //  GETTERS & SETTERS
     

@@ -60,7 +60,7 @@ public class ServiceUsuario{     //Sin Spring Security
         //sNotific.enviarEmail("Bienvenidos a Biblioteca Virtual", "Libreria Web", usuario.getMail()); //en video 2 de mvc la comentamos pq no hemos configurado un servidor de correo todavia
     }
     
-    @Transactional //Hacer lo mismo que en ServiceLibro de verificar de que hayan cambios antes de setear nuevamente
+    @Transactional
     public void modificar(String id,String nombre,String apellido,String mail,String clave,String clave2) throws MiExcepcion{
         
         validacion(nombre,apellido,mail,clave,clave2);
@@ -85,13 +85,7 @@ public class ServiceUsuario{     //Sin Spring Security
     @Transactional(readOnly = true)
     public Usuario buscarPorId(String id){
         Usuario u = usuarioRepo.buscarPorId(id);
-        //Manera más corta si manejo la excepcion en controlador
         return usuarioRepo.buscarPorId(id);
-//        if (u != null) {
-//            return u;
-//        } else {
-//            return null; //throw new MiExcepcion("Este libro no existe."); esto debo ponerlo en el controlador
-//        }
     }
     
     
@@ -101,10 +95,8 @@ public class ServiceUsuario{     //Sin Spring Security
         Optional<Usuario> respuesta = usuarioRepo.findById(id);
         if(respuesta.isPresent()){ 
             Usuario usuario = respuesta.get();
-            if(usuario.getBaja() == null){ //Lo mejoré igual que habilitar
-                usuario.setBaja(new Date());
-                usuarioRepo.save(usuario);
-            }
+            usuario.setBaja(new Date());
+            usuarioRepo.save(usuario);
         }else{
          throw new MiExcepcion("No se encontró el usuario ingresado");   
         }  
@@ -116,10 +108,8 @@ public class ServiceUsuario{     //Sin Spring Security
         Optional<Usuario> respuesta = usuarioRepo.findById(id);
         if(respuesta.isPresent()){
             Usuario usuario = respuesta.get();
-            if(usuario.getBaja() != null){ //Lo mejoré haciendo que si no está de baja no haga nada(si ya está de alta no le ponga el null a baja pq ya es null)
-                usuario.setBaja(null);          
-                usuarioRepo.save(usuario);
-            }
+            usuario.setBaja(null);          
+            usuarioRepo.save(usuario);    
         }else{
          throw new MiExcepcion("No se encontró el usuario ingresado");   
         }

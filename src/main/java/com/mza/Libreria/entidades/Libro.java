@@ -44,8 +44,6 @@ public class Libro {
     
     @OneToOne
     private Portada portada;
-
-//  CONSTRUCTORES (No lo ponemos porque Netbeans entiende que hay un constructor vacío por defecto)
     
 //  GETTERS & SETTERS
 

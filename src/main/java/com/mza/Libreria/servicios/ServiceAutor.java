@@ -63,22 +63,4 @@ public class ServiceAutor {
         }
     }
     
-    //------------------------------- NO USADOS --------------------------------
-    
-//    @Transactional
-//    public Autor modificarAutor(String nombre) throws MiExcepcion { 
-//        Autor autoreditado = autorRepo.buscarPorNombre(nombre);
-//        if (autoreditado != null) {                                //Explicación lógica del método: Si autoredit es distinto a null, existe por lo tanto existe algún libro con ese autor
-//            autoreditado.setNombre(nombre);                        //Posible linea innecesaria
-//            return autorRepo.save(autoreditado);
-//        } else {                                                   //Si no lo encuentra quiere decir que no existe ningún libro con ese autor por lo tanto sería un error
-//            throw new MiExcepcion("No se encontró a este Autor en la base de datos.");
-//        }
-//    }
-    
-    //Nose si lo usaré, en buscar por nombre busco solo un objeto pq lo necesito asi para las validaciones si existe un autor o no
-    @Transactional(readOnly = true)
-    public List<Autor> listarPorAutor(String nombre) {
-        return autorRepo.listarPorNombre(nombre);
-    }
 }

@@ -29,7 +29,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, String>{
     List<Usuario> buscaPrestamos(@Param("cantPrestamos") Integer cantPrestamos);
     
     @Query("SELECT a FROM Usuario a WHERE a.baja = NULL")
-    List<Usuario> listaActivos(@Param("baja") Date baja); //fijarme si funciona así
+    List<Usuario> listaActivos(@Param("baja") Date baja); 
 
     //@Query("SELECT a FROM Usuario a WHERE a.baja = null")
     //List<Usuario> buscaActivos();

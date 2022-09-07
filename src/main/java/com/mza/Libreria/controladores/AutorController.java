@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author Lautaro Pavez
  */
 @Controller
-@RequestMapping("/autor") //localhost:8080/autor  //Clase 2 Mañana
+@RequestMapping("/autor") 
 public class AutorController {
 
     @Autowired
@@ -36,12 +36,10 @@ public class AutorController {
     public String crear(ModelMap modelo, @RequestParam String nombreAutor) {
         try {
             servAutor.crearAutor(nombreAutor);
-            modelo.put("exito", "¡Has creado un nuevo Autor!"); //Al poner el redirect no se carga
-            //return "redirect:/libro/registro";
+            modelo.put("exito", "¡Has creado un nuevo Autor!"); 
             return "nuevoAutor";
         } catch (MiExcepcion ex) {
             modelo.put("error", ex.getMessage());
-            //Logger.getLogger(LibroController.class.getName()).log(Level.SEVERE, null, ex); //Con esto nos tira el error por consola, lo podemos sacar
             modelo.put("nombreAutor", nombreAutor);
             return "nuevoAutor";
         }
@@ -50,8 +48,8 @@ public class AutorController {
     @GetMapping("/lista")
     public String lista(ModelMap modelo){
         List<Autor> autoresLista = servAutor.buscaTodos();
-        modelo.addAttribute("autores",autoresLista); //Utilizo una llave("libros") y lo que viaja como valor es la lista librosLista
-         return "list-autor"; // 
+        modelo.addAttribute("autores",autoresLista);
+        return "list-autor"; 
     }
      
     
@@ -77,15 +75,14 @@ public class AutorController {
         }
     }
 
-    @GetMapping("/eliminar/{id}") //PATHVARIABLE
+    @GetMapping("/eliminar/{id}") 
     public String eliminar(@PathVariable String id,ModelMap modelo) throws Exception{
         try {
             servLibro.eliminarAutor(id);
             return "redirect:/autor/lista";  
         }catch(MiExcepcion ex) {
-            modelo.put("error", ex.getMessage()); //La profe no lo puso pero fijarme si anda
+            modelo.put("error", ex.getMessage()); 
             return "redirect:/autor/lista"; 
         }
-    }   
-    
+    }     
 }

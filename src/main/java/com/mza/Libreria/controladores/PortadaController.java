@@ -39,7 +39,7 @@ public class PortadaController {
             }
             byte[] portada = libro.getPortada().getContenido(); // Accedemos al contenido que es un arreglo de bytes, que es el que tenemos que hacer que descargue el navegador con una URL pq las fotos en HTML se consumen con una URL
 
-            HttpHeaders headers = new HttpHeaders(); //Las cabeceras le vana  decir al navegador que yo estoy devolviendo una imagen
+            HttpHeaders headers = new HttpHeaders(); //Las cabeceras le van a  decir al navegador que yo estoy devolviendo una imagen
             headers.setContentType(MediaType.IMAGE_JPEG);
             return new ResponseEntity<>(portada, headers, HttpStatus.OK); // El response entity puede recibir tres parámetros: 1° contenido, 2° cabecera 3° estado en el que se determina ese proceso, osea con que código vamos a devolver el pedido(HTTP STATUS 200,500,400,etc.)
         } catch (Exception e) {

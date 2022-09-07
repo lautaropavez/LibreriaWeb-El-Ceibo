@@ -1,5 +1,4 @@
 package com.mza.Libreria.excepciones;
-
 /**
  *
  * @author Lautaro Pavez
